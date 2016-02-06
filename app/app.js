@@ -13,7 +13,7 @@ class MainView extends Component {
     super(props);
     this.state = {
       rows: [],
-      happiness: 0,
+      happiness: .999999,
       count: 0
     };
   }
@@ -25,7 +25,7 @@ class MainView extends Component {
       rows = update(rows, {
         $push: [o]
       });
-      self.setState({rows});
+      self.setState({rows, happiness: this.state.happiness * this.state.happiness});
     });
   }
 
@@ -53,7 +53,7 @@ class MainView extends Component {
         </tr>
       );
     });
-    this.state.happiness = (this.state.happiness + happiness)/(this.state.count+1);
+    // this.state.happiness = (this.state.happiness + happiness)/(this.state.count+1);
     this.state.count=this.state.count+1;
     return(
       <div>

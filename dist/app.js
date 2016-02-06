@@ -89,7 +89,7 @@
 	    _get(Object.getPrototypeOf(MainView.prototype), 'constructor', this).call(this, props);
 	    this.state = {
 	      rows: [],
-	      happiness: 0,
+	      happiness: .999999,
 	      count: 0
 	    };
 	  }
@@ -104,7 +104,7 @@
 	        rows = (0, _reactAddonsUpdate2['default'])(rows, {
 	          $push: [o]
 	        });
-	        self.setState({ rows: rows });
+	        self.setState({ rows: rows, happiness: this.state.happiness * this.state.happiness });
 	      });
 	    }
 	  }, {
@@ -146,7 +146,7 @@
 	          )
 	        );
 	      });
-	      this.state.happiness = (this.state.happiness + happiness) / (this.state.count + 1);
+	      // this.state.happiness = (this.state.happiness + happiness)/(this.state.count+1);
 	      this.state.count = this.state.count + 1;
 	      return _react2['default'].createElement(
 	        'div',
