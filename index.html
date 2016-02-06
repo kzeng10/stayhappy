@@ -29,23 +29,12 @@
   <script>
     // Only works after `FB.init` is called
     function myFacebookLogin() {
-      FB.login(function(){}, {scope: 'user_posts,user_friends'});
+      FB.login(function(){}, {scope: 'user_photos'});
     }
 
-    function getPosts() {
+    function getPhotos() {
       FB.api(
-        "/me/feed",
-        function (response) {
-          if (response && !response.error) {
-            console.log(response);
-          }
-        }
-      );
-    }
-
-    function getFriends() {
-      FB.api(
-        "/me/friends",
+        "/me/photos",
         function (response) {
           if (response && !response.error) {
             // response.data.forEach(function (element) {
@@ -70,8 +59,7 @@
   </script>
   <body>
     <button onclick="myFacebookLogin()">Login with Facebook</button>
-    <button onclick="getPosts()">Get Posts</button>
-    <button onclick="getFriends()">Get Friends</button>
+    <button onclick="getPhotos()">Get Photos</button>
 
     <div id="main"></div>
   </body>
