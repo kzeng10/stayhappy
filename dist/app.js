@@ -104,7 +104,14 @@
 	        rows = (0, _reactAddonsUpdate2['default'])(rows, {
 	          $push: [o]
 	        });
-	        self.setState({ rows: rows });
+	        var happiness = 0;
+	        if (o.res.length !== 0) {
+	          o.res.forEach(function (obj) {
+	            happiness = happiness + obj.scores.happiness;
+	          });
+	          happiness = happiness / o.res.length;
+	        }
+	        self.setState({ rows: rows, happiness: (this.state.happiness + happiness) / (this.state.count + 1), count: this.state.count + 1 });
 	      });
 	    }
 	  }, {
@@ -146,8 +153,6 @@
 	          )
 	        );
 	      });
-	      this.state.happiness = (this.state.happiness + happiness) / (this.state.count + 1);
-	      this.state.count = this.state.count + 1;
 	      return _react2['default'].createElement(
 	        'div',
 	        null,
