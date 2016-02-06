@@ -14,7 +14,8 @@
       FB.init({
         appId      : '469790279875697',
         xfbml      : true,
-        version    : 'v2.5'
+        version    : 'v2.5',
+        status     : true
       });
     };
 
@@ -37,25 +38,25 @@
         "/me/photos",
         function (response) {
           if (response && !response.error) {
-            // response.data.forEach(function (element) {
-            //   printUrl(element.id);
-            // });
+            response.data.forEach(function (element) {
+              printUrl(element.id);
+            });
             console.log(response);
           }
         }
       );
     }
 
-    // function printUrl(id) {
-    //   FB.api(
-    //     "/{"+id+"}",
-    //     function (response) {
-    //       if (response && !response.error) {
-    //         console.log(response);
-    //       }
-    //     }
-    //   );
-    // }
+    function printUrl(id) {
+      FB.api(
+        "/{"+id+"}",
+        function (response) {
+          if (response && !response.error) {
+            console.log(response);
+          }
+        }
+      );
+    }
   </script>
   <body>
     <button onclick="myFacebookLogin()">Login with Facebook</button>
