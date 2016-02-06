@@ -117,18 +117,15 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this = this;
-
+	      var happiness;
 	      var rows = this.state.rows.map(function (element, i, array) {
-	        var happiness = 0;
+	        happiness = 0;
 	        if (element.res.length !== 0) {
 	          element.res.forEach(function (obj) {
 	            happiness = happiness + obj.scores.happiness;
 	          });
 	          happiness = happiness / element.res.length;
 	        }
-	        _this.state.happiness = (_this.state.happiness + happiness) / (_this.state.count + 1);
-	        _this.state.count = _this.state.count + 1;
 	        return _react2['default'].createElement(
 	          'tr',
 	          null,
@@ -149,6 +146,8 @@
 	          )
 	        );
 	      });
+	      this.state.happiness = (this.state.happiness + happiness) / (this.state.count + 1);
+	      this.state.count = this.state.count + 1;
 	      return _react2['default'].createElement(
 	        'div',
 	        null,

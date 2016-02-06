@@ -36,16 +36,15 @@ class MainView extends Component {
   }
 
   render() {
+    var happiness;
     var rows = this.state.rows.map((element, i, array) => {
-      var happiness = 0;
+      happiness = 0;
       if(element.res.length !== 0) {
         element.res.forEach((obj) => {
           happiness = happiness + obj.scores.happiness;
         });
         happiness = happiness / element.res.length;
       }
-      this.state.happiness = (this.state.happiness + happiness)/(this.state.count+1);
-      this.state.count=this.state.count+1;
       return(
         <tr>
           <td>{i}</td>
@@ -54,6 +53,8 @@ class MainView extends Component {
         </tr>
       );
     });
+    this.state.happiness = (this.state.happiness + happiness)/(this.state.count+1);
+    this.state.count=this.state.count+1;
     return(
       <div>
         <Grid>
