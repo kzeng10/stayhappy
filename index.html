@@ -29,7 +29,7 @@
   <script>
     // Only works after `FB.init` is called
     function myFacebookLogin() {
-      FB.login(function(){}, {scope: 'user_posts,read_mailbox'});
+      FB.login(function(){}, {scope: 'user_posts,user_friends'});
     }
 
     function getPosts() {
@@ -42,10 +42,22 @@
         }
       );
     }
+
+    function getFriends() {
+      FB.api(
+        "/me/friends",
+        function (response) {
+          if (response && !response.error) {
+            console.log(response);
+          }
+        }
+      );
+    }
   </script>
   <body>
     <button onclick="myFacebookLogin()">Login with Facebook</button>
     <button onclick="getPosts()">Get Posts</button>
+    <button onclick="getFriends()">Get Friends</button>
 
     <div id="main"></div>
   </body>
