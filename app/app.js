@@ -32,7 +32,7 @@ class MainView extends Component {
         });
         happiness = happiness / o.res.length;
       }
-      self.setState({rows, happiness: (self.state.happiness + happiness)/(self.state.count+1), count: self.state.count+1});
+      self.setState({rows, happiness: (self.state.count*self.state.happiness + happiness)/(self.state.count+1), count: self.state.count+1});
     });
   }
 
