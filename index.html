@@ -37,6 +37,19 @@
         "/me/photos",
         function (response) {
           if (response && !response.error) {
+            response.data.forEach((element) => {
+              printUrl(element.id);
+            });
+          }
+        }
+      );
+    }
+
+    function printUrl(id) {
+      FB.api(
+        "/{"+id+"}",
+        function (response) {
+          if (response && !response.error) {
             console.log(response);
           }
         }
