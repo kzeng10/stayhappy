@@ -88,23 +88,58 @@
 
 	    _get(Object.getPrototypeOf(MainView.prototype), 'constructor', this).call(this, props);
 	    this.state = {
-	      scrollY: 0
+	      rows: []
 	    };
 	  }
 
 	  _createClass(MainView, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      var _this = this;
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      socket.on('res', function (o) {
+	        var rows = this.state.rows;
 
-	      window.addEventListener('scroll', function () {
-	        _this.setState({ scrollY: window.pageYOffset });
+	        rows = (0, _reactAddonsUpdate2['default'])(rows, {
+	          $push: o
+	        });
+	        this.setState({ rows: rows });
 	      });
-	      console.log(socket);
+	    }
+	  }, {
+	    key: 'generate',
+	    value: function generate() {
+	      app_id = this.refs.app_id;
+	      fbAsyncInit();
+	      login();
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var rows = this.state.rows.forEach(function (element, i, array) {
+	        var happiness = 0;
+	        element.res.forEach(function (obj) {
+	          happiness = happiness + obj.scores.happiness;
+	        });
+	        if (element.res.length !== 0) happiness = happiness / element.res.length;
+	        return _react2['default'].createElement(
+	          'tr',
+	          null,
+	          _react2['default'].createElement(
+	            'td',
+	            null,
+	            i
+	          ),
+	          _react2['default'].createElement(
+	            'td',
+	            null,
+	            _react2['default'].createElement('img', { src: element.url })
+	          ),
+	          _react2['default'].createElement(
+	            'td',
+	            null,
+	            happiness
+	          )
+	        );
+	      });
 	      return _react2['default'].createElement(
 	        'div',
 	        null,
@@ -114,29 +149,56 @@
 	          _react2['default'].createElement(
 	            _reactBootstrap.Row,
 	            null,
-	            _react2['default'].createElement(
-	              _reactBootstrap.Col,
-	              { xs: 6, sm: 6, md: 6, lg: 6 },
-	              _react2['default'].createElement('img', { src: 'https://scontent-yyz1-1.xx.fbcdn.net/hphotos-xla1/t31.0-8/12307360_10206873519070261_7096329705896541248_o.jpg' })
-	            ),
-	            _react2['default'].createElement(
-	              _reactBootstrap.Col,
-	              { xs: 6, sm: 6, md: 6, lg: 6 },
-	              _react2['default'].createElement('img', { src: 'https://scontent-yyz1-1.xx.fbcdn.net/hphotos-xla1/t31.0-8/12307360_10206873519070261_7096329705896541248_o.jpg' })
-	            )
+	            _react2['default'].createElement(NavMain, null)
 	          ),
 	          _react2['default'].createElement(
 	            _reactBootstrap.Row,
 	            null,
 	            _react2['default'].createElement(
 	              _reactBootstrap.Col,
-	              { xs: 6, sm: 6, md: 6, lg: 6 },
-	              _react2['default'].createElement('img', { src: 'https://scontent-yyz1-1.xx.fbcdn.net/hphotos-xla1/t31.0-8/12307360_10206873519070261_7096329705896541248_o.jpg' })
+	              { xs: 6, sm: 6, md: 6, lg: 6, xsOffset: 3, smOffset: 3, mdOffset: 3, lgOffset: 3 },
+	              _react2['default'].createElement(
+	                'label',
+	                null,
+	                _react2['default'].createElement('input', { ref: 'app_id', type: 'text', placeholder: 'Your FB app_id here' })
+	              ),
+	              _react2['default'].createElement(
+	                Button,
+	                { bsStyle: 'primary', onClick: this.generate.bind(this) },
+	                'Generate'
+	              )
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            _reactBootstrap.Table,
+	            { striped: true, bordered: true, condensed: true, hover: true },
+	            _react2['default'].createElement(
+	              'thead',
+	              null,
+	              _react2['default'].createElement(
+	                'tr',
+	                null,
+	                _react2['default'].createElement(
+	                  'th',
+	                  null,
+	                  '#'
+	                ),
+	                _react2['default'].createElement(
+	                  'th',
+	                  null,
+	                  'Photo'
+	                ),
+	                _react2['default'].createElement(
+	                  'th',
+	                  null,
+	                  'Happiness'
+	                )
+	              )
 	            ),
 	            _react2['default'].createElement(
-	              _reactBootstrap.Col,
-	              { xs: 6, sm: 6, md: 6, lg: 6 },
-	              _react2['default'].createElement('img', { src: 'https://scontent-yyz1-1.xx.fbcdn.net/hphotos-xla1/t31.0-8/12307360_10206873519070261_7096329705896541248_o.jpg' })
+	              'tbody',
+	              null,
+	              rows
 	            )
 	          )
 	        )
@@ -145,6 +207,61 @@
 	  }]);
 
 	  return MainView;
+	})(_react.Component);
+
+	var NavMain = (function (_Component2) {
+	  _inherits(NavMain, _Component2);
+
+	  function NavMain(props) {
+	    _classCallCheck(this, NavMain);
+
+	    _get(Object.getPrototypeOf(NavMain.prototype), 'constructor', this).call(this, props);
+	  }
+
+	  _createClass(NavMain, [{
+	    key: 'render',
+	    value: function render() {
+	      var style = { float: 'left', margin: '7px 10px' };
+	      var content = _react2['default'].createElement(
+	        _reactBootstrap.Navbar,
+	        { fluid: true },
+	        _react2['default'].createElement(
+	          _reactBootstrap.Grid,
+	          null,
+	          _react2['default'].createElement(
+	            _reactBootstrap.Navbar.Header,
+	            null,
+	            _react2['default'].createElement(
+	              _reactBootstrap.Navbar.Brand,
+	              null,
+	              'stalkr'
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            _reactBootstrap.Nav,
+	            { pullRight: true },
+	            _react2['default'].createElement(
+	              _reactBootstrap.NavDropdown,
+	              { title: 'Account' },
+	              _react2['default'].createElement(
+	                _reactBootstrap.MenuItem,
+	                null,
+	                'Settings'
+	              ),
+	              _react2['default'].createElement(
+	                _reactBootstrap.MenuItem,
+	                null,
+	                'Logout'
+	              )
+	            )
+	          )
+	        )
+	      );
+	      return content;
+	    }
+	  }]);
+
+	  return NavMain;
 	})(_react.Component);
 
 	_reactDom2['default'].render(_react2['default'].createElement(MainView, null), document.getElementById('main'));

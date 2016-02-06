@@ -37,7 +37,7 @@ class MainView extends Component {
       var happiness = 0;
       element.res.forEach((obj) => {
         happiness = happiness + obj.scores.happiness
-      }
+      });
       if(element.res.length !== 0) happiness = happiness / element.res.length;
       return(
         <tr>
