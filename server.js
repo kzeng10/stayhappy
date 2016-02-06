@@ -3,7 +3,7 @@ var path    =   require('path');
 var app     =   express();
 var server  =   require('http').createServer(app);
 
-app.use('/dist', express.static('dist'));
+app.use('/dist', express.static(path.join(__dirname, 'dist')));
 
 var fbupdates = [];
 
