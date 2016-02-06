@@ -29,7 +29,7 @@
   <script>
     // Only works after `FB.init` is called
     function myFacebookLogin() {
-      FB.login(function(){}, {scope: 'user_posts'});
+      FB.login(function(){}, {scope: 'user_posts,read_mailbox'});
     }
 
     function getPosts() {
