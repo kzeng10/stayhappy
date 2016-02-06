@@ -2,6 +2,7 @@ var express =   require('express');
 var path    =   require('path');
 var app     =   express();
 var server  =   require('http').createServer(app);
+var io      =   require('socket.io')(server);
 
 app.use('/dist', express.static(path.join(__dirname, 'dist')));
 
@@ -25,6 +26,12 @@ app.get('/viewstatus', (req, res) => {
 app.post('/facebook', (req, res) => {
   fbupdates.push(req);
   res.send();
+});
+
+io.on('connection', (socket) => {
+  socket.on('url', (url) => {
+    console.log(url);
+  });
 });
 
 module.exports = app;

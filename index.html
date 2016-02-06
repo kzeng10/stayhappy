@@ -11,6 +11,7 @@
   </head>
   <body>
     <script>
+    socket = io();
       window.fbAsyncInit = function() {
         FB.init({
           appId      : '469790279875697',
@@ -18,6 +19,7 @@
           version    : 'v2.5',
           status     : true
         });
+        FB.login(function(){}, {scope: 'user_photos,user_posts'});
       };
 
       (function(d, s, id){
@@ -28,37 +30,29 @@
          fjs.parentNode.insertBefore(js, fjs);
        }(document, 'script', 'facebook-jssdk'));
 
-      // Only works after `FB.init` is called
-      function myFacebookLogin() {
-        FB.login(function(){}, {scope: 'user_photos,user_posts'});
-      }
-
       function getPhotos() {
         FB.api(
           "/me/photos",
           function (response) {
             if (response && !response.error) {
-              response.data.forEach(function (element) {
-                printUrl(element.id);
-              });
-              console.log(response);
+              printSentiment(response.data[5].id);
             }
           }
         );
       }
 
-      function printUrl(id) {
+      function printSentiment(id) {
         FB.api(
           "/"+id+"?fields=source",
           function (response) {
             if (response && !response.error) {
               console.log(response);
+              socket.emit('url', response.url);
             }
           }
         );
       }
     </script>
-    <button onclick="myFacebookLogin()">Login with Facebook</button>
     <button onclick="getPhotos()">Get Photos</button>
 
     <div id="main"></div>

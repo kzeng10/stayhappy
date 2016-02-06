@@ -46,7 +46,15 @@
 
 	'use strict';
 
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var _react = __webpack_require__(1);
 
@@ -72,11 +80,259 @@
 
 	__webpack_require__(407);
 
-	_reactDom2['default'].render(_react2['default'].createElement(
-	  'h1',
-	  null,
-	  'Hello World!'
-	), document.getElementById('main'));
+	var MainView = (function (_Component) {
+	  _inherits(MainView, _Component);
+
+	  function MainView(props) {
+	    _classCallCheck(this, MainView);
+
+	    _get(Object.getPrototypeOf(MainView.prototype), 'constructor', this).call(this, props);
+	    this.state = {
+	      scrollY: 0
+	    };
+	  }
+
+	  _createClass(MainView, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var _this = this;
+
+	      window.addEventListener('scroll', function () {
+	        _this.setState({ scrollY: window.pageYOffset });
+	      });
+	      // this.socket = io();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(NavMain, this.state),
+	        _react2['default'].createElement(
+	          _reactBootstrap.Grid,
+	          null,
+	          _react2['default'].createElement(
+	            _reactBootstrap.Row,
+	            null,
+	            _react2['default'].createElement(_reactBootstrap.Col, { xs: 6, sm: 8, md: 9 }),
+	            _react2['default'].createElement(
+	              _reactBootstrap.Col,
+	              { xs: 6, sm: 4, md: 3 },
+	              _react2['default'].createElement(DirectorySearchBar, null)
+	            )
+	          ),
+	          _react2['default'].createElement(DirectoryTable, this.state)
+	        )
+	      );
+	    }
+	  }]);
+
+	  return MainView;
+	})(_react.Component);
+
+	var NavMain = (function (_Component2) {
+	  _inherits(NavMain, _Component2);
+
+	  function NavMain(props) {
+	    _classCallCheck(this, NavMain);
+
+	    _get(Object.getPrototypeOf(NavMain.prototype), 'constructor', this).call(this, props);
+	  }
+
+	  _createClass(NavMain, [{
+	    key: 'render',
+	    value: function render() {
+	      var style = { float: 'left', margin: '7px 10px' };
+	      var content = _react2['default'].createElement(
+	        _reactBootstrap.Navbar,
+	        { fluid: true },
+	        _react2['default'].createElement(
+	          _reactBootstrap.Grid,
+	          null,
+	          _react2['default'].createElement(
+	            _reactBootstrap.Navbar.Header,
+	            null,
+	            _react2['default'].createElement(
+	              _reactBootstrap.Navbar.Brand,
+	              null,
+	              'stalkr'
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            _reactBootstrap.Nav,
+	            { pullRight: true },
+	            _react2['default'].createElement(
+	              _reactBootstrap.NavDropdown,
+	              { title: 'Account' },
+	              _react2['default'].createElement(
+	                _reactBootstrap.MenuItem,
+	                null,
+	                'Settings'
+	              ),
+	              _react2['default'].createElement(
+	                _reactBootstrap.MenuItem,
+	                null,
+	                'Logout'
+	              )
+	            )
+	          )
+	        )
+	      );
+	      if (this.props.scrollY > 50) {
+	        content = _react2['default'].createElement(
+	          _reactBootstrap.Navbar,
+	          { fixedTop: true, fluid: true },
+	          _react2['default'].createElement(
+	            _reactBootstrap.Grid,
+	            null,
+	            _react2['default'].createElement(
+	              _reactBootstrap.Navbar.Collapse,
+	              null,
+	              _react2['default'].createElement(
+	                _reactBootstrap.Navbar.Header,
+	                null,
+	                _react2['default'].createElement(
+	                  _reactBootstrap.Navbar.Brand,
+	                  null,
+	                  'stalkr'
+	                )
+	              ),
+	              _react2['default'].createElement(
+	                _reactBootstrap.Navbar.Form,
+	                { pullRight: true },
+	                _react2['default'].createElement(DirectorySearchBar, null)
+	              )
+	            )
+	          )
+	        );
+	      }
+	      return content;
+	    }
+	  }]);
+
+	  return NavMain;
+	})(_react.Component);
+
+	var DirectoryTable = (function (_Component3) {
+	  _inherits(DirectoryTable, _Component3);
+
+	  //Clicking on file should download
+	  //Clicking on folder should go into folder
+
+	  function DirectoryTable(props) {
+	    _classCallCheck(this, DirectoryTable);
+
+	    _get(Object.getPrototypeOf(DirectoryTable.prototype), 'constructor', this).call(this, props);
+	  }
+
+	  _createClass(DirectoryTable, [{
+	    key: 'render',
+	    value: function render() {
+	      // var rows = _.uniq(Object.keys(this.props.directory)
+	      //   .filter((file) => {return file.indexOf(this.props.curDir) === 0;}) //only current directory
+	      //   .map((file) => {return file.substring(this.props.curDir.length);}) //remove directory prefix
+	      //   .map((file) => {return file.split('/')[0];})) //for nested files, show only top-most parent folder
+	      // .map((file) => {
+	      //   var glyph = <Glyphicon glyph='file' />;
+
+	      //   //check if folder
+	      //   if(this.props.directory[this.props.curDir + file] === undefined) {
+	      //     glyph = <Glyphicon glyph='folder-close' />;
+	      //     var fileName = file;
+	      //     function handleClick() {
+	      //       this.props.openFolder(fileName);
+	      //     }
+
+	      //     file = <a href='#' onClick={handleClick.bind(this)}>{fileName}</a>;
+
+	      //   } else {
+
+	      //     switch(file.split('.').slice(-2)[0]) {
+	      //       case 'jpg':
+	      //       case 'png':
+	      //       case 'jpeg':
+	      //       case 'gif':
+	      //         glyph = <Glyphicon glyph='picture' />;
+	      //         break;
+	      //       case 'pdf':
+	      //         glyph = <FontAwesome className='fa fa-file-pdf-o' name='rootfile'/>;
+	      //         break;
+	      //       //add more cases here...
+	      //     }
+
+	      //     //take off .png from the end
+	      //     file = <a href={'/download/'+this.props.curDir+file}>{file.split('.').slice(0,-1).join('.')}</a>;
+	      //   }
+	      //   return (
+	      //     <tr>
+	      //       <td>{glyph}</td>
+	      //       <td>{file}</td>
+	      //       <td>Today</td>
+	      //     </tr>
+	      //   );
+	      // });
+
+	      return _react2['default'].createElement(
+	        _reactBootstrap.Table,
+	        { responsive: true, hover: true },
+	        _react2['default'].createElement(
+	          'thead',
+	          null,
+	          _react2['default'].createElement(
+	            'tr',
+	            null,
+	            _react2['default'].createElement(
+	              'th',
+	              null,
+	              _react2['default'].createElement(_reactBootstrap.Glyphicon, { glyph: 'star' })
+	            ),
+	            _react2['default'].createElement(
+	              'th',
+	              null,
+	              'Name'
+	            ),
+	            _react2['default'].createElement(
+	              'th',
+	              null,
+	              'Modified'
+	            )
+	          )
+	        ),
+	        _react2['default'].createElement('tbody', null)
+	      );
+	    }
+	  }]);
+
+	  return DirectoryTable;
+	})(_react.Component);
+
+	var DirectorySearchBar = (function (_Component4) {
+	  _inherits(DirectorySearchBar, _Component4);
+
+	  //Search through directory react-ively
+
+	  function DirectorySearchBar(props) {
+	    _classCallCheck(this, DirectorySearchBar);
+
+	    _get(Object.getPrototypeOf(DirectorySearchBar.prototype), 'constructor', this).call(this, props);
+	  }
+
+	  _createClass(DirectorySearchBar, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(_reactBootstrap.Input, {
+	        type: 'text',
+	        placeholder: 'Search',
+	        addonAfter: _react2['default'].createElement(_reactBootstrap.Glyphicon, { glyph: 'search' })
+	      });
+	    }
+	  }]);
+
+	  return DirectorySearchBar;
+	})(_react.Component);
+
+	_reactDom2['default'].render(_react2['default'].createElement(MainView, null), document.getElementById('main'));
 
 /***/ },
 /* 1 */
