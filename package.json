@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start" : "node ./bin/www",
-    "startdev": "webpack; nodemon server.js",
+    "startdev": "webpack; nodemon ./bin/www",
     "webpack": "webpack-dev-server --hot --inline"
   },
   "author": "Kevin Zeng <kzeng10@gmail.com>",

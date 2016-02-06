@@ -9,7 +9,44 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.7/socket.io.min.js"></script>
   </head>
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '469790279875697',
+        xfbml      : true,
+        version    : 'v2.5'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+  <script>
+    // Only works after `FB.init` is called
+    function myFacebookLogin() {
+      FB.login(function(){}, {scope: 'user_posts'});
+    }
+
+    function getPosts() {
+      FB.api(
+        "/me/feed",
+        function (response) {
+          if (response && !response.error) {
+            console.log(response);
+          }
+        }
+      );
+    }
+  </script>
   <body>
+    <button onclick="myFacebookLogin()">Login with Facebook</button>
+    <button onclick="getPosts()">Get Posts</button>
+
     <div id="main"></div>
   </body>
 
