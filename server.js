@@ -12,7 +12,10 @@ app.get('/',function(req,res){
 });
 
 app.get('/facebook', (req, res) => {
-  res.send(fbupdates);
+  if(req.query['hub.verify_token'] === 'stalkingu') res.send(req.query['hub.challenge']);
+  else {
+    res.send("FAIL");
+  }
 });
 
 app.post('/facebook', (req, res) => {
