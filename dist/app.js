@@ -117,7 +117,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var happiness;
+	      var happiness = 0;
 	      var rows = this.state.rows.map(function (element, i, array) {
 	        happiness = 0;
 	        if (element.res.length !== 0) {
@@ -146,8 +146,8 @@
 	          )
 	        );
 	      });
-	      this.setState({ happiness: (this.state.happiness + happiness) / (this.state.count + 1) });
-	      this.setState({ count: this.state.count + 1 });
+	      this.state.happiness = (this.state.happiness + happiness) / (this.state.count + 1);
+	      this.state.count = this.state.count + 1;
 	      return _react2['default'].createElement(
 	        'div',
 	        null,
