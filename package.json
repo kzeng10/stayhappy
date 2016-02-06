@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start" : "node server.js",
+    "start" : "webpack && node ./bin/www",
     "startdev": "webpack; nodemon server.js",
     "webpack": "webpack-dev-server --hot --inline"
   },
