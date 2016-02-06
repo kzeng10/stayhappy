@@ -3,6 +3,7 @@ var path    =   require('path');
 var app     =   express();
 var server  =   require('http').createServer(app);
 var io      =   require('socket.io')(server);
+var ofe     =   require('node-oxford-emotion')('b29c2e900bda494383c9717deb47fd7b');
 
 var port = process.env.PORT || 3000;
 app.set('port', port);
@@ -35,7 +36,9 @@ app.post('/facebook', (req, res) => {
 
 io.on('connection', (socket) => {
   socket.on('url', (url) => {
-    console.log(url);
+    ofe.recognize('url', url, (res) => {
+      socket.emit('res', res);
+    });
   });
 });
 
