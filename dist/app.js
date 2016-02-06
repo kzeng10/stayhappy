@@ -111,7 +111,7 @@
 	          });
 	          happiness = happiness / o.res.length;
 	        }
-	        self.setState({ rows: rows, happiness: (this.state.happiness + happiness) / (this.state.count + 1), count: this.state.count + 1 });
+	        self.setState({ rows: rows, happiness: (self.state.happiness + happiness) / (self.state.count + 1), count: self.state.count + 1 });
 	      });
 	    }
 	  }, {
