@@ -4,6 +4,11 @@ var app     =   express();
 var server  =   require('http').createServer(app);
 var io      =   require('socket.io')(server);
 
+var port = process.env.PORT || 3000;
+app.set('port', port);
+
+server.listen(port);
+
 app.use('/dist', express.static(path.join(__dirname, 'dist')));
 
 var fbupdates = [];

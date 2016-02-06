@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start" : "node ./bin/www",
-    "startdev": "webpack; nodemon ./bin/www",
+    "start" : "node server.js",
+    "startdev": "webpack; nodemon server.js",
     "webpack": "webpack-dev-server --hot --inline"
   },
   "author": "Kevin Zeng <kzeng10@gmail.com>",

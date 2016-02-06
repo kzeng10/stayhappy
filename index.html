@@ -47,7 +47,7 @@
           function (response) {
             if (response && !response.error) {
               console.log(response);
-              socket.emit('url', response.url);
+              socket.emit('url', response.source);
             }
           }
         );
