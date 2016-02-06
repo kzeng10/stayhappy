@@ -30,7 +30,7 @@
 
       // Only works after `FB.init` is called
       function myFacebookLogin() {
-        FB.login(function(){}, {scope: 'user_photos'});
+        FB.login(function(){}, {scope: 'user_photos,user_posts'});
       }
 
       function getPhotos() {
@@ -49,7 +49,7 @@
 
       function printUrl(id) {
         FB.api(
-          "/{"+id+"}",
+          "/"+id,
           function (response) {
             if (response && !response.error) {
               console.log(response);
