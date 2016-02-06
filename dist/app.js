@@ -88,7 +88,9 @@
 
 	    _get(Object.getPrototypeOf(MainView.prototype), 'constructor', this).call(this, props);
 	    this.state = {
-	      rows: []
+	      rows: [],
+	      happiness: 0,
+	      count: 0
 	    };
 	  }
 
@@ -103,7 +105,6 @@
 	          $push: [o]
 	        });
 	        self.setState({ rows: rows });
-	        alert(self.state.rows[0]);
 	      });
 	    }
 	  }, {
@@ -116,6 +117,8 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this = this;
+
 	      var rows = this.state.rows.map(function (element, i, array) {
 	        var happiness = 0;
 	        if (element.res.length !== 0) {
@@ -124,7 +127,8 @@
 	          });
 	          happiness = happiness / element.res.length;
 	        }
-
+	        _this.state.happiness = (_this.state.happiness + happiness) / (_this.state.count + 1);
+	        _this.state.count = _this.state.count + 1;
 	        return _react2['default'].createElement(
 	          'tr',
 	          null,
@@ -172,6 +176,19 @@
 	                { bsStyle: 'primary', onClick: this.generate.bind(this) },
 	                'Generate'
 	              )
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            _reactBootstrap.Row,
+	            null,
+	            _react2['default'].createElement(
+	              'h3',
+	              null,
+	              ' Average happiness: ',
+	              this.state.happiness,
+	              ' | Count: ',
+	              this.state.count,
+	              ' '
 	            )
 	          ),
 	          _react2['default'].createElement(

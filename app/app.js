@@ -12,7 +12,9 @@ class MainView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rows: []
+      rows: [],
+      happiness: 0,
+      count: 0
     };
   }
 
@@ -24,7 +26,6 @@ class MainView extends Component {
         $push: [o]
       });
       self.setState({rows});
-      alert(self.state.rows[0]);
     });
   }
 
@@ -43,7 +44,8 @@ class MainView extends Component {
         });
         happiness = happiness / element.res.length;
       }
-
+      this.state.happiness = (this.state.happiness + happiness)/(this.state.count+1);
+      this.state.count=this.state.count+1;
       return(
         <tr>
           <td>{i}</td>
@@ -65,6 +67,9 @@ class MainView extends Component {
               </label>
               <Button bsStyle="primary" onClick={this.generate.bind(this)}>Generate</Button>
             </Col>
+          </Row>
+          <Row>
+            <h3> Average happiness: {this.state.happiness} | Count: {this.state.count} </h3>
           </Row>
           <Table striped bordered condensed hover>
             <thead>
