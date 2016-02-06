@@ -37,7 +37,7 @@
         "/me/photos",
         function (response) {
           if (response && !response.error) {
-            response.data.forEach((element) => {
+            response.data.forEach(function (element) {
               printUrl(element.id);
             });
           }
