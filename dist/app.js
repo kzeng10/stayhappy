@@ -163,7 +163,7 @@
 	                _react2['default'].createElement('input', { ref: 'app_id', type: 'text', placeholder: 'Your FB app_id here' })
 	              ),
 	              _react2['default'].createElement(
-	                Button,
+	                _reactBootstrap.Button,
 	                { bsStyle: 'primary', onClick: this.generate.bind(this) },
 	                'Generate'
 	              )
