@@ -21,7 +21,7 @@ class MainView extends Component {
     socket.on('res', function(o) {
       var {rows} = self.state;
       rows = update(rows, {
-        $push: o
+        $push: [o]
       });
       self.setState({rows});
     });

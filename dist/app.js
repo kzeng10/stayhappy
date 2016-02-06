@@ -100,7 +100,7 @@
 	        var rows = self.state.rows;
 
 	        rows = (0, _reactAddonsUpdate2['default'])(rows, {
-	          $push: o
+	          $push: [o]
 	        });
 	        self.setState({ rows: rows });
 	      });
