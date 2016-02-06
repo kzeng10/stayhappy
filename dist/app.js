@@ -117,10 +117,13 @@
 	    value: function render() {
 	      var rows = this.state.rows.forEach(function (element, i, array) {
 	        var happiness = 0;
-	        element.res.forEach(function (obj) {
-	          happiness = happiness + obj.scores.happiness;
-	        });
-	        if (element.res.length !== 0) happiness = happiness / element.res.length;
+	        if (element.res.length !== 0) {
+	          element.res.forEach(function (obj) {
+	            happiness = happiness + obj.scores.happiness;
+	          });
+	          happiness = happiness / element.res.length;
+	        }
+
 	        return _react2['default'].createElement(
 	          'tr',
 	          null,

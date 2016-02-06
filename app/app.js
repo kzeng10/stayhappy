@@ -36,10 +36,13 @@ class MainView extends Component {
   render() {
     var rows = this.state.rows.forEach((element, i, array) => {
       var happiness = 0;
-      element.res.forEach((obj) => {
-        happiness = happiness + obj.scores.happiness
-      });
-      if(element.res.length !== 0) happiness = happiness / element.res.length;
+      if(element.res.length !== 0) {
+        element.res.forEach((obj) => {
+          happiness = happiness + obj.scores.happiness;
+        });
+        happiness = happiness / element.res.length;
+      }
+
       return(
         <tr>
           <td>{i}</td>
