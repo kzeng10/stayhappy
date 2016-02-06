@@ -100,7 +100,7 @@
 	      window.addEventListener('scroll', function () {
 	        _this.setState({ scrollY: window.pageYOffset });
 	      });
-	      // this.socket = io();
+	      console.log(socket);
 	    }
 	  }, {
 	    key: 'render',
@@ -108,228 +108,43 @@
 	      return _react2['default'].createElement(
 	        'div',
 	        null,
-	        _react2['default'].createElement(NavMain, this.state),
 	        _react2['default'].createElement(
 	          _reactBootstrap.Grid,
 	          null,
 	          _react2['default'].createElement(
 	            _reactBootstrap.Row,
 	            null,
-	            _react2['default'].createElement(_reactBootstrap.Col, { xs: 6, sm: 8, md: 9 }),
 	            _react2['default'].createElement(
 	              _reactBootstrap.Col,
-	              { xs: 6, sm: 4, md: 3 },
-	              _react2['default'].createElement(DirectorySearchBar, null)
+	              { xs: 6, sm: 6, md: 6, lg: 6 },
+	              _react2['default'].createElement('img', { src: 'https://scontent-yyz1-1.xx.fbcdn.net/hphotos-xla1/t31.0-8/12307360_10206873519070261_7096329705896541248_o.jpg' })
+	            ),
+	            _react2['default'].createElement(
+	              _reactBootstrap.Col,
+	              { xs: 6, sm: 6, md: 6, lg: 6 },
+	              _react2['default'].createElement('img', { src: 'https://scontent-yyz1-1.xx.fbcdn.net/hphotos-xla1/t31.0-8/12307360_10206873519070261_7096329705896541248_o.jpg' })
 	            )
 	          ),
-	          _react2['default'].createElement(DirectoryTable, this.state)
+	          _react2['default'].createElement(
+	            _reactBootstrap.Row,
+	            null,
+	            _react2['default'].createElement(
+	              _reactBootstrap.Col,
+	              { xs: 6, sm: 6, md: 6, lg: 6 },
+	              _react2['default'].createElement('img', { src: 'https://scontent-yyz1-1.xx.fbcdn.net/hphotos-xla1/t31.0-8/12307360_10206873519070261_7096329705896541248_o.jpg' })
+	            ),
+	            _react2['default'].createElement(
+	              _reactBootstrap.Col,
+	              { xs: 6, sm: 6, md: 6, lg: 6 },
+	              _react2['default'].createElement('img', { src: 'https://scontent-yyz1-1.xx.fbcdn.net/hphotos-xla1/t31.0-8/12307360_10206873519070261_7096329705896541248_o.jpg' })
+	            )
+	          )
 	        )
 	      );
 	    }
 	  }]);
 
 	  return MainView;
-	})(_react.Component);
-
-	var NavMain = (function (_Component2) {
-	  _inherits(NavMain, _Component2);
-
-	  function NavMain(props) {
-	    _classCallCheck(this, NavMain);
-
-	    _get(Object.getPrototypeOf(NavMain.prototype), 'constructor', this).call(this, props);
-	  }
-
-	  _createClass(NavMain, [{
-	    key: 'render',
-	    value: function render() {
-	      var style = { float: 'left', margin: '7px 10px' };
-	      var content = _react2['default'].createElement(
-	        _reactBootstrap.Navbar,
-	        { fluid: true },
-	        _react2['default'].createElement(
-	          _reactBootstrap.Grid,
-	          null,
-	          _react2['default'].createElement(
-	            _reactBootstrap.Navbar.Header,
-	            null,
-	            _react2['default'].createElement(
-	              _reactBootstrap.Navbar.Brand,
-	              null,
-	              'stalkr'
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            _reactBootstrap.Nav,
-	            { pullRight: true },
-	            _react2['default'].createElement(
-	              _reactBootstrap.NavDropdown,
-	              { title: 'Account' },
-	              _react2['default'].createElement(
-	                _reactBootstrap.MenuItem,
-	                null,
-	                'Settings'
-	              ),
-	              _react2['default'].createElement(
-	                _reactBootstrap.MenuItem,
-	                null,
-	                'Logout'
-	              )
-	            )
-	          )
-	        )
-	      );
-	      if (this.props.scrollY > 50) {
-	        content = _react2['default'].createElement(
-	          _reactBootstrap.Navbar,
-	          { fixedTop: true, fluid: true },
-	          _react2['default'].createElement(
-	            _reactBootstrap.Grid,
-	            null,
-	            _react2['default'].createElement(
-	              _reactBootstrap.Navbar.Collapse,
-	              null,
-	              _react2['default'].createElement(
-	                _reactBootstrap.Navbar.Header,
-	                null,
-	                _react2['default'].createElement(
-	                  _reactBootstrap.Navbar.Brand,
-	                  null,
-	                  'stalkr'
-	                )
-	              ),
-	              _react2['default'].createElement(
-	                _reactBootstrap.Navbar.Form,
-	                { pullRight: true },
-	                _react2['default'].createElement(DirectorySearchBar, null)
-	              )
-	            )
-	          )
-	        );
-	      }
-	      return content;
-	    }
-	  }]);
-
-	  return NavMain;
-	})(_react.Component);
-
-	var DirectoryTable = (function (_Component3) {
-	  _inherits(DirectoryTable, _Component3);
-
-	  //Clicking on file should download
-	  //Clicking on folder should go into folder
-
-	  function DirectoryTable(props) {
-	    _classCallCheck(this, DirectoryTable);
-
-	    _get(Object.getPrototypeOf(DirectoryTable.prototype), 'constructor', this).call(this, props);
-	  }
-
-	  _createClass(DirectoryTable, [{
-	    key: 'render',
-	    value: function render() {
-	      // var rows = _.uniq(Object.keys(this.props.directory)
-	      //   .filter((file) => {return file.indexOf(this.props.curDir) === 0;}) //only current directory
-	      //   .map((file) => {return file.substring(this.props.curDir.length);}) //remove directory prefix
-	      //   .map((file) => {return file.split('/')[0];})) //for nested files, show only top-most parent folder
-	      // .map((file) => {
-	      //   var glyph = <Glyphicon glyph='file' />;
-
-	      //   //check if folder
-	      //   if(this.props.directory[this.props.curDir + file] === undefined) {
-	      //     glyph = <Glyphicon glyph='folder-close' />;
-	      //     var fileName = file;
-	      //     function handleClick() {
-	      //       this.props.openFolder(fileName);
-	      //     }
-
-	      //     file = <a href='#' onClick={handleClick.bind(this)}>{fileName}</a>;
-
-	      //   } else {
-
-	      //     switch(file.split('.').slice(-2)[0]) {
-	      //       case 'jpg':
-	      //       case 'png':
-	      //       case 'jpeg':
-	      //       case 'gif':
-	      //         glyph = <Glyphicon glyph='picture' />;
-	      //         break;
-	      //       case 'pdf':
-	      //         glyph = <FontAwesome className='fa fa-file-pdf-o' name='rootfile'/>;
-	      //         break;
-	      //       //add more cases here...
-	      //     }
-
-	      //     //take off .png from the end
-	      //     file = <a href={'/download/'+this.props.curDir+file}>{file.split('.').slice(0,-1).join('.')}</a>;
-	      //   }
-	      //   return (
-	      //     <tr>
-	      //       <td>{glyph}</td>
-	      //       <td>{file}</td>
-	      //       <td>Today</td>
-	      //     </tr>
-	      //   );
-	      // });
-
-	      return _react2['default'].createElement(
-	        _reactBootstrap.Table,
-	        { responsive: true, hover: true },
-	        _react2['default'].createElement(
-	          'thead',
-	          null,
-	          _react2['default'].createElement(
-	            'tr',
-	            null,
-	            _react2['default'].createElement(
-	              'th',
-	              null,
-	              _react2['default'].createElement(_reactBootstrap.Glyphicon, { glyph: 'star' })
-	            ),
-	            _react2['default'].createElement(
-	              'th',
-	              null,
-	              'Name'
-	            ),
-	            _react2['default'].createElement(
-	              'th',
-	              null,
-	              'Modified'
-	            )
-	          )
-	        ),
-	        _react2['default'].createElement('tbody', null)
-	      );
-	    }
-	  }]);
-
-	  return DirectoryTable;
-	})(_react.Component);
-
-	var DirectorySearchBar = (function (_Component4) {
-	  _inherits(DirectorySearchBar, _Component4);
-
-	  //Search through directory react-ively
-
-	  function DirectorySearchBar(props) {
-	    _classCallCheck(this, DirectorySearchBar);
-
-	    _get(Object.getPrototypeOf(DirectorySearchBar.prototype), 'constructor', this).call(this, props);
-	  }
-
-	  _createClass(DirectorySearchBar, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2['default'].createElement(_reactBootstrap.Input, {
-	        type: 'text',
-	        placeholder: 'Search',
-	        addonAfter: _react2['default'].createElement(_reactBootstrap.Glyphicon, { glyph: 'search' })
-	      });
-	    }
-	  }]);
-
-	  return DirectorySearchBar;
 	})(_react.Component);
 
 	_reactDom2['default'].render(_react2['default'].createElement(MainView, null), document.getElementById('main'));
