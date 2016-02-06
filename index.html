@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml">
+<html>
   <head>
     <meta charset="UTF-8" />
     <title>Hello React!</title>
@@ -37,24 +37,25 @@
         "/me/photos",
         function (response) {
           if (response && !response.error) {
-            response.data.forEach(function (element) {
-              printUrl(element.id);
-            });
-          }
-        }
-      );
-    }
-
-    function printUrl(id) {
-      FB.api(
-        "/{"+id+"}",
-        function (response) {
-          if (response && !response.error) {
+            // response.data.forEach(function (element) {
+            //   printUrl(element.id);
+            // });
             console.log(response);
           }
         }
       );
     }
+
+    // function printUrl(id) {
+    //   FB.api(
+    //     "/{"+id+"}",
+    //     function (response) {
+    //       if (response && !response.error) {
+    //         console.log(response);
+    //       }
+    //     }
+    //   );
+    // }
   </script>
   <body>
     <button onclick="myFacebookLogin()">Login with Facebook</button>
