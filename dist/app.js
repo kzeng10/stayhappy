@@ -103,6 +103,7 @@
 	          $push: [o]
 	        });
 	        self.setState({ rows: rows });
+	        alert(self.state.rows[0]);
 	      });
 	    }
 	  }, {

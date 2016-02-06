@@ -24,6 +24,7 @@ class MainView extends Component {
         $push: [o]
       });
       self.setState({rows});
+      alert(self.state.rows[0]);
     });
   }
 
