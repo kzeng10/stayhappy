@@ -12,10 +12,6 @@
   <body>
     <div id="main"></div>
   </body>
-  <!-- magically toggle between scripts for local server / build -->
-  <script type="text/javascript">
-    var url = document.URL.indexOf("3000") > -1 ? "http://localhost:3000/app.js" : "dist/app.js";
-    document.write('<' + 'script src="' + url + '" ></script' + '>');
-  </script>
-  <!-- <script type="text/javascript" src="dist/app.js"></script> -->
+
+  <script type="text/javascript" src="dist/app.js"></script>
 </html>
