@@ -93,15 +93,16 @@
 	  }
 
 	  _createClass(MainView, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var self = this;
 	      socket.on('res', function (o) {
-	        var rows = this.state.rows;
+	        var rows = self.state.rows;
 
 	        rows = (0, _reactAddonsUpdate2['default'])(rows, {
 	          $push: o
 	        });
-	        this.setState({ rows: rows });
+	        self.setState({ rows: rows });
 	      });
 	    }
 	  }, {

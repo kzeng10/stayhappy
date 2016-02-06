@@ -16,13 +16,14 @@ class MainView extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    var self = this;
     socket.on('res', function(o) {
-      var {rows} = this.state;
+      var {rows} = self.state;
       rows = update(rows, {
         $push: o
       });
-      this.setState({rows});
+      self.setState({rows});
     });
   }
 
