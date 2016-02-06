@@ -12,33 +12,98 @@ class MainView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      scrollY: 0
+      rows: []
     };
   }
 
-  componentWillMount() {
-    window.addEventListener('scroll', () => {this.setState({scrollY: window.pageYOffset});});
-    console.log(socket);
+  componentDidMount() {
+    socket.on('res', function(o) {
+      var {rows} = this.state;
+      rows = update(rows, {
+        $push: o
+      });
+      this.setState({rows});
+    });
+  }
+
+  generate() {
+    app_id = this.refs.app_id;
+    fbAsyncInit();
+    login();
   }
 
   render() {
+    var rows = this.state.rows.forEach((element, i, array) => {
+      var happiness = 0;
+      element.res.forEach((obj) => {
+        happiness = happiness + obj.scores.happiness
+      }
+      if(element.res.length !== 0) happiness = happiness / element.res.length;
+      return(
+        <tr>
+          <td>{i}</td>
+          <td><img src={element.url}/></td>
+          <td>{happiness}</td>
+        </tr>
+      );
+    });
     return(
       <div>
         <Grid>
           <Row>
-            <Col xs={6} sm={6} md={6} lg={6}><img src="https://scontent-yyz1-1.xx.fbcdn.net/hphotos-xla1/t31.0-8/12307360_10206873519070261_7096329705896541248_o.jpg"/></Col>
-            <Col xs={6} sm={6} md={6} lg={6}><img src="https://scontent-yyz1-1.xx.fbcdn.net/hphotos-xla1/t31.0-8/12307360_10206873519070261_7096329705896541248_o.jpg"/></Col>
+            <NavMain/>
           </Row>
           <Row>
-            <Col xs={6} sm={6} md={6} lg={6}><img src="https://scontent-yyz1-1.xx.fbcdn.net/hphotos-xla1/t31.0-8/12307360_10206873519070261_7096329705896541248_o.jpg"/></Col>
-            <Col xs={6} sm={6} md={6} lg={6}><img src="https://scontent-yyz1-1.xx.fbcdn.net/hphotos-xla1/t31.0-8/12307360_10206873519070261_7096329705896541248_o.jpg"/></Col>
+            <Col xs={6} sm={6} md={6} lg={6} xsOffset={3} smOffset={3} mdOffset={3} lgOffset={3}>
+              <label>
+                <input ref="app_id" type="text" placeholder="Your FB app_id here" ></input>
+              </label>
+              <Button bsStyle="primary" onClick={this.generate.bind(this)}>Generate</Button>
+            </Col>
           </Row>
+          <Table striped bordered condensed hover>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Photo</th>
+                <th>Happiness</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows}
+            </tbody>
+          </Table>
         </Grid>
       </div>
     );
   }
 }
 
+class NavMain extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    var style = {float: 'left', margin: '7px 10px'};
+    var content =
+    <Navbar fluid>
+      <Grid>
+        <Navbar.Header>
+          <Navbar.Brand>stalkr</Navbar.Brand>
+        </Navbar.Header>
+        <Nav pullRight>
+          <NavDropdown title="Account">
+            <MenuItem>Settings</MenuItem>
+            <MenuItem>Logout</MenuItem>
+          </NavDropdown>
+        </Nav>
+      </Grid>
+    </Navbar>;
+    return content;
+  }
+}
 
 ReactDOM.render(
   <MainView/>,

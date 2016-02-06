@@ -12,12 +12,10 @@
   <body>
     <script>
     socket = io();
-    socket.on('res', function(res) {
-      console.log(res);
-    });
-      window.fbAsyncInit = function() {
+    app_id = '469790279875697'
+      fbAsyncInit = window.fbAsyncInit = function() {
         FB.init({
-          appId      : '469790279875697',
+          appId      : app_id,
           xfbml      : true,
           version    : 'v2.5',
           status     : true

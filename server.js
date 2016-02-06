@@ -33,7 +33,7 @@ app.get('/facebook', (req, res) => {
 io.on('connection', (socket) => {
   socket.on('url', (url) => {
     ofe.recognize('url', url, (res) => {
-      socket.emit('res', res);
+      socket.emit('res', {res: res, url: url});
     });
   });
 });
