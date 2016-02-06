@@ -9,56 +9,56 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.7/socket.io.min.js"></script>
   </head>
-  <script>
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '469790279875697',
-        xfbml      : true,
-        version    : 'v2.5',
-        status     : true
-      });
-    };
-
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "//connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
-  </script>
-  <script>
-    // Only works after `FB.init` is called
-    function myFacebookLogin() {
-      FB.login(function(){}, {scope: 'user_photos'});
-    }
-
-    function getPhotos() {
-      FB.api(
-        "/me/photos",
-        function (response) {
-          if (response && !response.error) {
-            response.data.forEach(function (element) {
-              printUrl(element.id);
-            });
-            console.log(response);
-          }
-        }
-      );
-    }
-
-    function printUrl(id) {
-      FB.api(
-        "/{"+id+"}",
-        function (response) {
-          if (response && !response.error) {
-            console.log(response);
-          }
-        }
-      );
-    }
-  </script>
   <body>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '469790279875697',
+          xfbml      : true,
+          version    : 'v2.5',
+          status     : true
+        });
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <script>
+      // Only works after `FB.init` is called
+      function myFacebookLogin() {
+        FB.login(function(){}, {scope: 'user_photos'});
+      }
+
+      function getPhotos() {
+        FB.api(
+          "/me/photos",
+          function (response) {
+            if (response && !response.error) {
+              response.data.forEach(function (element) {
+                printUrl(element.id);
+              });
+              console.log(response);
+            }
+          }
+        );
+      }
+
+      function printUrl(id) {
+        FB.api(
+          "/{"+id+"}",
+          function (response) {
+            if (response && !response.error) {
+              console.log(response);
+            }
+          }
+        );
+      }
+    </script>
     <button onclick="myFacebookLogin()">Login with Facebook</button>
     <button onclick="getPhotos()">Get Photos</button>
 
