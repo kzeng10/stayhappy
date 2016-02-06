@@ -116,7 +116,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var rows = this.state.rows.forEach(function (element, i, array) {
+	      var rows = this.state.rows.map(function (element, i, array) {
 	        var happiness = 0;
 	        if (element.res.length !== 0) {
 	          element.res.forEach(function (obj) {
