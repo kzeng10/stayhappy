@@ -53,8 +53,8 @@ class MainView extends Component {
         </tr>
       );
     });
-    this.state.happiness = (this.state.happiness + happiness)/(this.state.count+1);
-    this.state.count=this.state.count+1;
+    this.setState({happiness: (this.state.happiness + happiness)/(this.state.count+1)});
+    this.setState({count: this.state.count+1});
     return(
       <div>
         <Grid>
