@@ -18,6 +18,10 @@ app.get('/facebook', (req, res) => {
   }
 });
 
+app.get('/viewstatus', (req, res) => {
+  res.send(fbupdates);
+});
+
 app.post('/facebook', (req, res) => {
   fbupdates.push(req);
   res.send();
